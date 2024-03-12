@@ -1,7 +1,6 @@
 import { ImageResponse } from 'next/server'
 import colors from 'tailwindcss/colors'
 
-import { env } from '@/env'
 import { api } from '@/service/api'
 import { Product } from '@/@types/product'
 
@@ -28,9 +27,6 @@ export default async function OgImage({
   })
 
   const product: Product = await response.json()
-
-  const productImageURL = new URL(product.image, env.APP_URL).toString()
-
   return new ImageResponse(
     (
       <div
@@ -42,7 +38,7 @@ export default async function OgImage({
           flexDirection: 'column',
         }}
       >
-        <img src={productImageURL} alt="" style={{ width: '100%' }} />
+        <img src={product.image} alt="" style={{ width: '100%' }} />
       </div>
     ),
     {
